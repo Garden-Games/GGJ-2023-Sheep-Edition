@@ -34,15 +34,14 @@ public class Flock : MonoBehaviour {
                 Quaternion.LookRotation(direction),
                 FlockManager.FM.rotationSpeed * Time.deltaTime);
         } else {
-
-
-            if (Random.Range(0, 100) < 10) {
+            float updateThreshold = FlockManager.FM.GetFlockUpdateFrequency();
+            if (Random.Range(0.0f, 1.0f) <= updateThreshold) {
 
                 speed = Random.Range(FlockManager.FM.minSpeed, FlockManager.FM.maxSpeed);
             }
 
 
-            if (Random.Range(0, 100) < 10) {
+            if (Random.Range(0.0f, 1.0f) <= updateThreshold) {
                 ApplyRules();
             }
         }
