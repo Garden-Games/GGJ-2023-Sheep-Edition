@@ -44,15 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98cafa4bb020f2d49a95d039807f251d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveLimits: {x: 5, y: 0, z: 5}
   creaturePrefab: {fileID: 8746415100772626246, guid: 39ff5f30d5d78e647bec365e10651318, type: 3}
   numCreature: 20
-  flockManagerDirectionUpdateFrequency: 0.1
-  flockUpdateFrequency: 0.1
-  autoAdjustGoalPos: 1
+  autoAdjustGoalPos: 0
+  applyMovementLimits: 0
+  moveLimits: {x: 5, y: 0, z: 5}
   minSpeed: 2.5
   maxSpeed: 2.5
   neighbourDistance: 5
   rotationSpeed: 2.5
   goalPos: {x: 10, y: 0, z: 10}
   allCreatures: []
+  flockManagerDirectionUpdateFrequency: 0.1
+  flockUpdateFrequency: 0.1
+  gizmoYOffset: 0.5
+  gizmoSphereRadius: 1
+  uuid: 
