@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class FlockManager : MonoBehaviour {
 
-    // a private static dictionary to hold string uuid keys and FlockManager object values
-    private static Dictionary<string, FlockManager> FlockManagers = new Dictionary<string, FlockManager>();
-
-
     [Header("Flock Manager Settings")]
     [Tooltip("The prefab of the creature to spawn in the flock, has to have a Flock component")]
     public GameObject creaturePrefab;
@@ -40,8 +36,6 @@ public class FlockManager : MonoBehaviour {
     [Header("Debug")]
     [SerializeField] private float gizmoYOffset = 0.50f;
     [SerializeField] private float gizmoSphereRadius = 1.0f;
-    // create a serialized field string to hold uuid
-    [SerializeField] private string uuid;
 
     void Start() {
 
@@ -64,11 +58,6 @@ public class FlockManager : MonoBehaviour {
         }
 
         goalPos = this.transform.position;
-
-        uuid = System.Guid.NewGuid().ToString();
-
-        // register the flockmanager with uuid
-        FlockManager.registerFlockManager(this);
     }
 
 
@@ -119,20 +108,5 @@ public class FlockManager : MonoBehaviour {
 
     public float GetFlockUpdateFrequency() {
         return flockUpdateFrequency;
-    }
-
-    public static void registerFlockManager(FlockManager flockManager) {
-        // add the uuid and the flock manager to the dictionary
-        FlockManagers.Add(flockManager.uuid, flockManager);
-    }
-
-    public static FlockManager GetFlockManager(string uuid) {
-        // if the dictionary contains the key
-        if (FlockManagers.ContainsKey(uuid)) {
-            // return the value
-            return FlockManagers[uuid];
-        }
-        // otherwise return null
-        return null;
     }
 }
