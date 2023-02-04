@@ -639,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092f3a58be76803438fb2029ae19409d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flockNeighborhoodCollider: {fileID: 0}
 --- !u!195 &-6120061196447897885
 NavMeshAgent:
   m_ObjectHideFlags: 0

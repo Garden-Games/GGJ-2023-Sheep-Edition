@@ -5,111 +5,129 @@ using UnityEngine;
 public class Flock : MonoBehaviour {
 
     float speed;
-    bool turning = false;
 
     private FlockManager manager;
+    private Vector3 fixedGoalPosition = Vector3.zero;
+    private bool navigateToFixedGoal = false;
+    private bool flockingEnabled = true;
+
+    public SphereCollider flockNeighborhoodCollider;
+
+
+
+    // private list of gameobjects called neighbors
+    private List<GameObject> neighbors = new List<GameObject>();
+    private Vector3 internalGoalPos = Vector3.zero;
 
 
 
     void Start() {
-        
-    }
+        if (!manager) {
+            manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
+        }
 
-    public void setFlockManager(FlockManager manager) {
-        this.manager = manager;
-        speed = Random.Range(manager.minSpeed, manager.maxSpeed);
-        
+
+
+
     }
 
 
     void Update() {
+        // if random number between 0 and 1 is less than manager.flockUpdateFrequency
         if (!manager) {
-            return;
+            manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
-        Bounds b = new Bounds(manager.transform.position, manager.moveLimits * 2.0f);
-
-        if (manager.applyMovementLimits && !b.Contains(transform.position)) {
-
-            turning = true;
-        } else {
-
-            turning = false;
+        // set sphereCollider radius to manager.neighborhoodRadius
+        flockNeighborhoodCollider.radius = manager.neighborhoodRadius;
+        if (flockingEnabled && Random.Range(0.0f, 1.0f) < manager.flockUpdateFrequency) {
+            UpdateGoalPos();
         }
-
-        if (turning) {
-
-            Vector3 direction = manager.transform.position - transform.position;
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.LookRotation(direction),
-                manager.rotationSpeed * Time.deltaTime);
-        } else {
-            float updateThreshold = manager.GetFlockUpdateFrequency();
-            if (Random.Range(0.0f, 1.0f) <= updateThreshold) {
-
-                speed = Random.Range(manager.minSpeed, manager.maxSpeed);
-            }
-
-
-            if (Random.Range(0.0f, 1.0f) <= updateThreshold) {
-                ApplyRules();
-            }
-        }
-
-        this.transform.Translate(0.0f, 0.0f, speed * Time.deltaTime);
     }
 
-    private void ApplyRules() {
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.GetComponent<Flock>() != null) {
+            neighbors.Add(other.gameObject);
+        }
+    }
 
-        GameObject[] gos;
-        gos = manager.GetAllCreatures();
+    void OnTriggerExit(Collider other) {
+        if (other.gameObject.tag == "Flock") {
+            neighbors.Remove(other.gameObject);
+        }
+    }
 
-        Vector3 vCentre = Vector3.zero;
-        Vector3 vAvoid = Vector3.zero;
 
-        float gSpeed = 0.01f;
-        float mDistance;
-        int groupSize = 0;
+    private GameObject[] GetNeighbors() {
 
-        foreach (GameObject go in gos) {
+        // return empty array of gameobjects
+        return new GameObject[0];
+    }
 
-            if (go != this.gameObject) {
+    public Vector3 CalculateNeighborhoodCenter() {
 
-                mDistance = Vector3.Distance(go.transform.position, this.transform.position);
-                if (mDistance <= manager.neighbourDistance) {
+        return Vector3.zero;
+    }
 
-                    vCentre += go.transform.position;
-                    groupSize++;
+    private void UpdateGoalPos() {
+        if (!manager) {
+            manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
+        }
+        Vector3 newGoal = Vector3.zero;
+        foreach (GameObject neighbor in neighbors) {
+            newGoal += neighbor.transform.position;
+        }
+        internalGoalPos = newGoal / neighbors.Count;
 
-                    if (mDistance < 1.0f) {
+        // get nav mesh agent component of game object
 
-                        vAvoid = vAvoid + (this.transform.position - go.transform.position);
-                    }
+        UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        Vector3 goalPos = GetGoalPos();
+        agent.SetDestination(goalPos);
+    }
 
-                    Flock anotherFlock = go.GetComponent<Flock>();
-                    gSpeed = gSpeed + anotherFlock.speed;
-                }
+    public Vector3 GetGoalPos() {
+        if (!manager) {
+            manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
+        }
+        if (manager.goalPosOverride) {
+            return manager.goalPos;
+        } else {
+            if (navigateToFixedGoal) {
+                return fixedGoalPosition;
+            }
+            else {
+                return internalGoalPos;
             }
         }
+    }
 
-        if (groupSize > 0) {
+    public void SetGoalPos(Vector3 pos) {
+        fixedGoalPosition = pos;
+        navigateToFixedGoal = true;
+    }
 
-            vCentre = vCentre / groupSize + (manager.GetGoalPos() - this.transform.position);
-            speed = gSpeed / groupSize;
+    public void SetFlockingEnabled(bool enabled) {
+        flockingEnabled = enabled;
+    }
 
-            if (speed > manager.maxSpeed) {
+    public void ClearGoalPos() {
+        navigateToFixedGoal = false;
+    }
 
-                speed = manager.maxSpeed;
-            }
+    private void OnDrawGizmos() {
+        // draw a green arrow to the goal
+        Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
+        Gizmos.DrawRay(transform.position, GetGoalPos() - transform.position);
 
-            Vector3 direction = (vCentre + vAvoid) - transform.position;
-            if (direction != Vector3.zero) {
+        // draw a red translucent sphere at the goal 
+        Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
+        Gizmos.DrawSphere(GetGoalPos(), 0.5f);
 
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(direction),
-                    manager.rotationSpeed * Time.deltaTime);
-            }
-        }
+
+        // draw a yellow translucent sphere with radius manager.neighborhoodRadius
+        Gizmos.color = new Color(1.0f, 1.0f, 0.0f, 0.02f);
+        Gizmos.DrawSphere(transform.position, manager.neighborhoodRadius);
+
+        
     }
 }
