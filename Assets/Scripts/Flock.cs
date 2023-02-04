@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Flock : MonoBehaviour {
 
     float speed;
@@ -71,16 +73,29 @@ public class Flock : MonoBehaviour {
         if (!manager) {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
-        Vector3 newGoal = Vector3.zero;
-        foreach (GameObject neighbor in neighbors) {
-            newGoal += neighbor.transform.position;
+        if (neighbors.Count > 0) {
+            Vector3 newGoal = Vector3.zero;
+            foreach (GameObject neighbor in neighbors) {
+                newGoal += neighbor.transform.position;
+            }
+            internalGoalPos = newGoal / neighbors.Count;
         }
-        internalGoalPos = newGoal / neighbors.Count;
+
 
         // get nav mesh agent component of game object
 
         UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         Vector3 goalPos = GetGoalPos();
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        if (playerObjects != null) {
+            foreach(GameObject playerObject in playerObjects) {
+                Vector3 playerDisplacement = playerObject.transform.position - transform.position;
+                if (playerDisplacement.magnitude < manager.desiredPlayerDistance) {
+                    goalPos = goalPos - (2 * playerDisplacement);
+                }
+            }
+        }
         agent.SetDestination(goalPos);
     }
 

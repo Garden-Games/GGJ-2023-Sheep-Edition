@@ -452,13 +452,5 @@ PrefabInstance:
       propertyPath: goalPosObject
       value: 
       objectReference: {fileID: 1678615596}
-    - target: {fileID: 5149257497492575278, guid: e31a72debb4474f8c9c6656dba5262d2, type: 3}
-      propertyPath: goalPosOverride
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5149257497492575278, guid: e31a72debb4474f8c9c6656dba5262d2, type: 3}
-      propertyPath: neighborhoodRadius
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e31a72debb4474f8c9c6656dba5262d2, type: 3}
