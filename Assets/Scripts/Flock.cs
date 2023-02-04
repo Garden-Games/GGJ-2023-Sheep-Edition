@@ -7,15 +7,16 @@ public class Flock : MonoBehaviour {
     float speed;
     bool turning = false;
 
-    void Start() {
 
+
+    void Start() {
         speed = Random.Range(FlockManager.FM.minSpeed, FlockManager.FM.maxSpeed);
     }
 
 
     void Update() {
 
-        Bounds b = new Bounds(FlockManager.FM.transform.position, FlockManager.FM.swimLimits * 2.0f);
+        Bounds b = new Bounds(FlockManager.FM.transform.position, FlockManager.FM.moveLimits * 2.0f);
 
         if (!b.Contains(transform.position)) {
 
@@ -52,7 +53,7 @@ public class Flock : MonoBehaviour {
     private void ApplyRules() {
 
         GameObject[] gos;
-        gos = FlockManager.FM.allFish;
+        gos = FlockManager.FM.GetAllCreatures();
 
         Vector3 vCentre = Vector3.zero;
         Vector3 vAvoid = Vector3.zero;
@@ -84,7 +85,7 @@ public class Flock : MonoBehaviour {
 
         if (groupSize > 0) {
 
-            vCentre = vCentre / groupSize + (FlockManager.FM.goalPos - this.transform.position);
+            vCentre = vCentre / groupSize + (FlockManager.FM.GetGoalPos() - this.transform.position);
             speed = gSpeed / groupSize;
 
             if (speed > FlockManager.FM.maxSpeed) {
