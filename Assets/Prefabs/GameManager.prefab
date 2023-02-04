@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: flockManager
       value: 
       objectReference: {fileID: 5149257497492575273}
+    - target: {fileID: 7625717155860295587, guid: 814ce34bbe1104755bac56015ea229dd, type: 3}
+      propertyPath: creaturePrefab
+      value: 
+      objectReference: {fileID: 225253122684929043, guid: a2da261c081d13e4b92319603f0524b7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 814ce34bbe1104755bac56015ea229dd, type: 3}
 --- !u!4 &4248236464120047655 stripped

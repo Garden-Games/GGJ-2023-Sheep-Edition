@@ -10,9 +10,6 @@ public class SheepSpawner : MonoBehaviour
     public int numCreature = 20;
     public Vector3 spawnLimits = new Vector3(5.0f, 0.0f, 5.0f);
 
-    public GameObject flockManager;
-
-
     private GameObject[] allCreatures;
     // Start is called before the first frame update
     void Start()
@@ -29,10 +26,6 @@ public class SheepSpawner : MonoBehaviour
             allCreatures[i] = Instantiate(creaturePrefab, pos, Quaternion.identity);
             
             // cast allCreatures[i] into object of type Flock
-        }
-
-        if (flockManager != null) {
-            flockManager.GetComponent<FlockManager>().SetAllCreatures(allCreatures);
         }
         
     }
