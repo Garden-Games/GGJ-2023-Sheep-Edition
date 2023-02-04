@@ -9,6 +9,7 @@ public class FlockManager : MonoBehaviour {
     [Range(0.0f, 50.0f)] public float maxSpeed = 2.5f;
     [Range(1.0f, 5.0f)] public float rotationSpeed = 2.5f;
     [Range(1.0f, 10.0f)] public float neighborhoodRadius = 5.0f;
+    public float desiredPlayerDistance = 5.0f;
 
     [Header("Advanced Settings")]
     [Tooltip("How frequently the Flock component applies flock rules. Between 0.0 and 1.0")]
