@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class FlockManager : MonoBehaviour {
 
-    [Header("Flock Manager Settings")]
-    [Tooltip("The prefab of the creature to spawn in the flock, has to have a Flock component")]
-    public GameObject creaturePrefab;
-    public int numCreature = 20;
-
     [Header("Flock Manager Behavior")]
     [Tooltip("Automatically adjust the flock goal position over time")]
     public bool autoAdjustGoalPos = false;
@@ -38,26 +33,6 @@ public class FlockManager : MonoBehaviour {
     [SerializeField] private float gizmoSphereRadius = 1.0f;
 
     void Start() {
-
-        allCreatures = new GameObject[numCreature];
-
-        for (int i = 0; i < numCreature; ++i) {
-
-            Vector3 pos = this.transform.position + new Vector3(
-                Random.Range(-moveLimits.x, moveLimits.x),
-                Random.Range(-moveLimits.y, moveLimits.y),
-                Random.Range(-moveLimits.z, moveLimits.z));
-
-            allCreatures[i] = Instantiate(creaturePrefab, pos, Quaternion.identity);
-            
-            // cast allCreatures[i] into object of type Flock
-
-            Flock flock = allCreatures[i].GetComponent<Flock>();
-            // call setFlockManager on the Flock component
-            flock.setFlockManager(this);
-        }
-
-        goalPos = this.transform.position;
     }
 
 
@@ -104,6 +79,14 @@ public class FlockManager : MonoBehaviour {
 
     public GameObject[] GetAllCreatures() {
         return allCreatures;
+    }
+
+    public void SetAllCreatures(GameObject[] creatures) {
+        allCreatures = creatures;
+        // loop through all creatures and set their flock manager
+        foreach (GameObject creature in allCreatures) {
+            creature.GetComponent<Flock>().SetFlockManager(this);
+        }
     }
 
     public float GetFlockUpdateFrequency() {

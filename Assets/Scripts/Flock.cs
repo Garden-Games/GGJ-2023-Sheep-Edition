@@ -15,7 +15,7 @@ public class Flock : MonoBehaviour {
         
     }
 
-    public void setFlockManager(FlockManager manager) {
+    public void SetFlockManager(FlockManager manager) {
         this.manager = manager;
         speed = Random.Range(manager.minSpeed, manager.maxSpeed);
         
