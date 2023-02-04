@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 386670933}
   - component: {fileID: 386670932}
   - component: {fileID: 386670936}
+  - component: {fileID: 386670937}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -215,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 386670931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 0.1, z: 10}
+  m_LocalScale: {x: 50, y: 0.1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -234,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
+  m_CollectObjects: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
@@ -249,7 +250,37 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: e4edbcaf3a3e7314ea322544d660bdbb, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!114 &386670937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386670931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -1372625422
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.33333334
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: bf25a10892f830f4c995eceae249532c, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &740343924
 GameObject:
@@ -379,15 +410,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98cafa4bb020f2d49a95d039807f251d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishPrefab: {fileID: 8746415100772626246, guid: 39ff5f30d5d78e647bec365e10651318, type: 3}
-  numFish: 20
-  allFish: []
-  swimLimits: {x: 5, y: 5, z: 5}
-  goalPos: {x: 0, y: 0, z: 0}
+  creaturePrefab: {fileID: 0}
+  numCreature: 20
+  moveLimits: {x: 5, y: 5, z: 5}
+  normalizedUpdateFrequency: 0.1
   minSpeed: 0.3
   maxSpeed: 0.35
   neighbourDistance: 0
   rotationSpeed: 0
+  goalPos: {x: 0, y: 0, z: 0}
+  allCreatures: []
 --- !u!1 &1705238339
 GameObject:
   m_ObjectHideFlags: 0
