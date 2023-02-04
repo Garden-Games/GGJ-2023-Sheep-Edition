@@ -17,6 +17,9 @@ public class FlockManager : MonoBehaviour {
     [Range(0.0f, 1.0f)] public float flockManagerDirectionUpdateFrequency = 0.1f;
     [Tooltip("How frequently the Flock component applies flock rules. Between 0.0 and 1.0")]
     [Range(0.0f, 1.0f)] public float flockUpdateFrequency = 0.1f;
+    [Tooltip("Automatically adjust the flock goal position over time")]
+    public bool autoAdjustGoalPos = true;
+
 
     [Header("Creature Settings")]
     [Range(0.0f, 5.0f)] public float minSpeed = 2.5f;
@@ -50,7 +53,7 @@ public class FlockManager : MonoBehaviour {
         // get a random number between 0 and 1
         float random = Random.Range(0.0f, 1.0f);
         // if the random number is less than the update frequency
-        if (random < flockManagerDirectionUpdateFrequency) {
+        if (autoAdjustGoalPos && random < flockManagerDirectionUpdateFrequency) {
             // update the goal position
             goalPos = this.transform.position + new Vector3(
                 Random.Range(-moveLimits.x, moveLimits.x),
@@ -61,6 +64,10 @@ public class FlockManager : MonoBehaviour {
 
     public Vector3 GetGoalPos() {
         return goalPos;
+    }
+
+    public void SetGoalPos(Vector3 newGoalPos) {
+        goalPos = newGoalPos;
     }
 
     public GameObject[] GetAllCreatures() {
