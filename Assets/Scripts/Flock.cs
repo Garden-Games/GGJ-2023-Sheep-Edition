@@ -28,7 +28,6 @@ public class Flock : MonoBehaviour {
 
 
 
-
     }
 
 
@@ -90,8 +89,14 @@ public class Flock : MonoBehaviour {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
         if (manager.goalPosOverride) {
-            return manager.goalPos;
-        } else {
+            if (manager.goalPosObject != null) {
+                return manager.goalPosObject.transform.position;
+            }
+            else {
+                return manager.goalPos;
+            }
+        }
+        else {
             if (navigateToFixedGoal) {
                 return fixedGoalPosition;
             }
