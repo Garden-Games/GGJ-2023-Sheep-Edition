@@ -17,7 +17,10 @@ public class FlockManager : MonoBehaviour {
     [Header("Debug")]
     [Tooltip("Hardcoded goal position, overrides other settings")]
     public Vector3 goalPos = Vector3.zero;
+    [Tooltip("Hardcoded target to follow, overrides other settings including goal position")]
+    public GameObject goalPosObject = null;
     public bool goalPosOverride = false;
+
 
     [Header("Deprecated")]
     [Tooltip("moveLimits is deprecated don't use it")]
