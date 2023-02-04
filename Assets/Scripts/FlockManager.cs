@@ -21,21 +21,14 @@ public class FlockManager : MonoBehaviour {
     public bool autoAdjustGoalPos = true;
 
 
-
     [Header("Creature Settings")]
     [Range(0.0f, 5.0f)] public float minSpeed = 2.5f;
     [Range(0.0f, 50.0f)] public float maxSpeed = 2.5f;
     [Range(1.0f, 10.0f)] public float neighbourDistance = 5.0f;
     [Range(1.0f, 5.0f)] public float rotationSpeed = 2.5f;
-
-
-    [Header("Flock Status")]
+    
     [SerializeField] private Vector3 goalPos = Vector3.zero;
     [SerializeField] private GameObject[] allCreatures;
-
-    [Header("Debug")]
-    [SerializeField] private float gizmoYOffset = 0.50f;
-    [SerializeField] private float gizmoSphereRadius = 1.0f;
 
     void Start() {
 
@@ -67,24 +60,6 @@ public class FlockManager : MonoBehaviour {
                 Random.Range(-moveLimits.y, moveLimits.y),
                 Random.Range(-moveLimits.z, moveLimits.z));
         }
-    }
-
-    private void OnDrawGizmos() {
-        // set the gizmo color to a translucent blue
-        Gizmos.color = new Color(0.0f, 1.0f, 1.0f, 0.5f);
-        Vector3 originPos = new Vector3(this.transform.position.x, this.transform.position.y + gizmoYOffset, this.transform.position.z);
-        Gizmos.DrawSphere(originPos, gizmoSphereRadius);
-
-        // set the gizmo color to a translucent blue
-        Gizmos.color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
-        // draw a cube with bounds defined by the originPos and the moveLimits
-        Vector3 adjustedOriginPos = new Vector3(originPos.x - moveLimits.x, originPos.y - moveLimits.y, originPos.z - moveLimits.z);
-        Gizmos.DrawCube(adjustedOriginPos, moveLimits * 2.0f);
-
-        // set gizmo color to a translucent red
-        Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
-        Vector3 gizmoPos = new Vector3(goalPos.x, goalPos.y + gizmoYOffset, goalPos.z);
-        Gizmos.DrawSphere(gizmoPos, gizmoSphereRadius);
     }
 
     public Vector3 GetGoalPos() {
