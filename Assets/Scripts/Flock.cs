@@ -76,7 +76,9 @@ public class Flock : MonoBehaviour {
         if (neighbors.Count > 0) {
             Vector3 newGoal = Vector3.zero;
             foreach (GameObject neighbor in neighbors) {
-                newGoal += neighbor.transform.position;
+                if (neighbor != null) {
+                    newGoal += neighbor.transform.position;
+                }
             }
             internalGoalPos = newGoal / neighbors.Count;
         }
