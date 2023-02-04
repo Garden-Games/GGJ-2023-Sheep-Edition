@@ -55,6 +55,12 @@ public class FlockManager : MonoBehaviour {
                 Random.Range(-moveLimits.z, moveLimits.z));
 
             allCreatures[i] = Instantiate(creaturePrefab, pos, Quaternion.identity);
+            
+            // cast allCreatures[i] into object of type Flock
+
+            Flock flock = allCreatures[i].GetComponent<Flock>();
+            // call setFlockManager on the Flock component
+            flock.setFlockManager(this);
         }
 
         goalPos = this.transform.position;
