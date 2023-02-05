@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 0.1
   RotationSpeed: 0.5
-  DogPrefab: {fileID: 1267326651748458145, guid: 68e9aabc4f04dac46a838715f64e6c2d, type: 3}
+  DogPrefab: {fileID: 3674346750566360700, guid: cfac7626e1de04b40bd804eadcef8f28, type: 3}
   throwForce: 9
   longThrowForceMultiplier: 2
   upwardThrowForce: 8
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1065246172847423571}
   - component: {fileID: 1143537262268513083}
   - component: {fileID: 6847841790479929621}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: DogPickUpSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
