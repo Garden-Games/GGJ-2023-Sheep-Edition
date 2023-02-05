@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719942137469201557, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.96521044
+      value: 2.37
       objectReference: {fileID: 0}
     - target: {fileID: 1719942137469201557, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719942137469201557, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.7664237
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: 1719942137469201557, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -177,10 +177,6 @@ PrefabInstance:
     - target: {fileID: 5133828357227721326, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5389172338729747507, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
-      propertyPath: MoveSpeed
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
@@ -411,14 +407,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creaturePrefab: {fileID: 8746415100772626246, guid: 39ff5f30d5d78e647bec365e10651318, type: 3}
   numCreature: 20
+  autoAdjustGoalPos: 0
+  applyMovementLimits: 0
   moveLimits: {x: 5, y: 5, z: 5}
-  normalizedUpdateFrequency: 0.1
   minSpeed: 0.3
   maxSpeed: 0.35
   neighbourDistance: 0
   rotationSpeed: 0
   goalPos: {x: 0, y: 0, z: 0}
   allCreatures: []
+  flockManagerDirectionUpdateFrequency: 0.1
+  flockUpdateFrequency: 0.1
+  gizmoYOffset: 0.5
+  gizmoSphereRadius: 1
 --- !u!1 &1705238339
 GameObject:
   m_ObjectHideFlags: 0

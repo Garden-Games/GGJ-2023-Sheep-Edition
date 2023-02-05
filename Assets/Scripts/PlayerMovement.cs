@@ -17,7 +17,13 @@ public class PlayerMovement : MonoBehaviour
     [Range(0.0f, 100.0f)]public float MoveSpeed = 5f;
     [Range(0.0f, 1.0f)] public float RotationSpeed = 0.5f;
 
-    
+    [Header("Dog Stuff")]
+    public GameObject DogPrefab;
+    [Range(1.0f,10.0f)]public float throwForce = 8f;
+    [Range(1.0f,10.0f)]public float longThrowForceMultiplier = 2f;
+    [Range(1.0f, 3.0f)]public float dogSpawnDistance = 1.0f;
+    [Range(1.0f, 10.0f)] public float upwardThrowForce = 1.0f;
+ 
 
     private void OnEnable()
     {
@@ -50,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
         cc.Move(MoveDirection * MoveSpeed);
     }
 
-
     private void Move()
     {
         Vector3 playerInputVector = moveController.ReadValue<Vector2>();
@@ -61,14 +66,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Yell(InputAction.CallbackContext obj)
     {
-
+        print("Yelling");
     }
 
     private void ThrowDog(InputAction.CallbackContext obj)
     {
+        Vector3 playerPos = gameObject.transform.position;
+        Vector3 playerDirection = gameObject.transform.forward;
+        Quaternion playerRotation = gameObject.transform.rotation;
+      
+        Vector3 dogSpawingPosition = playerPos + playerDirection * dogSpawnDistance;
+        WaitForEnable();
+        GameObject dog = Instantiate(DogPrefab, dogSpawingPosition, playerRotation);
+        Rigidbody dogrb = dog.GetComponent<Rigidbody>();
+        Vector3 throwDirection = gameObject.transform.forward;
+        throwDirection.y += upwardThrowForce;
 
+        dogrb.AddForce(throwDirection * throwForce * longThrowForceMultiplier,ForceMode.Impulse);
     }
-
     private void RotateTowardsDirection()
     {
 
@@ -78,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerable WaitForEnable()
+    {
+        yield return new WaitForEndOfFrame();
+    }
+
+ 
 
 
 }
