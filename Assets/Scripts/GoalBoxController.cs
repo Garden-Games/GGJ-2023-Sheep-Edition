@@ -8,6 +8,8 @@ public class GoalBoxController : MonoBehaviour
     public ParticleSystem winParticleSystem;
     public int DestroyWinCount = 5;
 
+    public float GoalDistanceThreshold = 1.0f;
+
     public int destroyedCount = 0;
     // Start is called before the first frame update
     void Start()
@@ -28,9 +30,17 @@ public class GoalBoxController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Flock>() != null)
         {
+            // get the transform of the other
+            GameObject otherGo = other.gameObject;
+            Vector3 disp = transform.position - otherGo.transform.position;
+            if (disp.magnitude < GoalDistanceThreshold) {
+                // Destroy(other.gameObject);
+                Flock f = otherGo.GetComponent<Flock>();
+                f.SetGoalPos(transform.position);
+                f.SetFlockingEnabled(false);
+                destroyedCount += 1;
+            }
 
-            Destroy(other.gameObject);
-            destroyedCount += 1;
         }
     }
 
