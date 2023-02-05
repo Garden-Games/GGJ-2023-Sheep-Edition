@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GoalBoxController : MonoBehaviour
 {
@@ -26,6 +27,20 @@ public class GoalBoxController : MonoBehaviour
     void Start()
     {
         winParticleSystem.gameObject.SetActive(false);
+    }
+
+    private IEnumerator SceneLoadCoroutine()
+    {
+        Debug.Log("Level Complete! Loading next level in 3 seconds...");
+        yield return new WaitForSeconds(3);
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (sceneIndex >= SceneManager.sceneCountInBuildSettings) {
+            Debug.Log("You win the game!");
+        }
+        else {
+            SceneManager.LoadScene(sceneIndex + 1);
+        }
     }
 
     // Update is called once per frame
@@ -60,6 +75,9 @@ public class GoalBoxController : MonoBehaviour
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
                 winAnimationPlayed = true;
+                StartCoroutine(SceneLoadCoroutine());
+                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
             }
             winParticleSystem.gameObject.SetActive(true);
         } else
