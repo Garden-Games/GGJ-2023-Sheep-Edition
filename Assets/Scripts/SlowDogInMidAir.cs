@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SlowDogInMidAir : MonoBehaviour
 {
-
+    private bool isGrounded = false;
     private CharacterController ccColider;
+
     [Range(0.001f, 0.99999f)] public float slowDownMultiplier = 0.99f;
 
     private void OnEnable()
@@ -15,7 +16,7 @@ public class SlowDogInMidAir : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (!ccColider.isGrounded)
+        if (!isGrounded)
         {
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
             Vector3 rbVelocity =rb.velocity;
@@ -24,4 +25,22 @@ public class SlowDogInMidAir : MonoBehaviour
             rb.velocity = rbVelocity;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
+        }
+    }
+
+
 }
