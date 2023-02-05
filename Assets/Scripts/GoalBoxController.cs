@@ -43,6 +43,8 @@ public class GoalBoxController : MonoBehaviour
     {
         // draw a translucent red cube around the position of this objects boxcollider object
         Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
-        Gizmos.DrawCube(this.transform.position, this.GetComponent<BoxCollider>().size);
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawCube(Vector3.zero, this.GetComponent<BoxCollider>().size);
+        
     }
 }
