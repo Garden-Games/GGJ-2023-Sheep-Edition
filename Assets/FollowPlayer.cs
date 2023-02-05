@@ -6,6 +6,7 @@ public class FollowPlayer : MonoBehaviour
 {
     public Transform player;
     public Vector3 offset;
+    [Range(0.001f, 0.5f)]
     public float followSpeed;
 
     private Vector3 interpolatedPosition;
