@@ -579,7 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2047561235237449764, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: numCreature
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2047561235237449764, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: spawnLimits.x
