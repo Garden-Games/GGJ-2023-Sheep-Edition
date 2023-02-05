@@ -573,6 +573,10 @@ PrefabInstance:
       propertyPath: offset.z
       value: -9.95
       objectReference: {fileID: 0}
+    - target: {fileID: 2010018230058868980, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: near clip plane
+      value: -11.88
+      objectReference: {fileID: 0}
     - target: {fileID: 2047561235237449764, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: spawnLimits.x
       value: 1
@@ -584,6 +588,18 @@ PrefabInstance:
     - target: {fileID: 2047561235237449764, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: spawnLimits.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069037693945074170, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.93184966
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069037693945074170, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.36284462
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069037693945074170, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 42.55
       objectReference: {fileID: 0}
     - target: {fileID: 2868798127082441041, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: neighborhoodRadius
