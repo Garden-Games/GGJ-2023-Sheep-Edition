@@ -59,7 +59,7 @@ public class GoalBoxController : MonoBehaviour
                 agent.SetDestination(transform.position);
                 sheep.GetComponent<Flock>().enabled = false;
                 destroyedCount += 1;
-                doneSheep.GetComponent<AudioSource>().Play();
+                sheep.GetComponent<AudioSource>().Play();
                 doneSheep.Add(otherGo);
                 isGoalComplete = destroyedCount >= DestroyWinCount;
             }
