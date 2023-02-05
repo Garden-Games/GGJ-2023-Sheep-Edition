@@ -7,6 +7,8 @@ public class GoalBoxController : MonoBehaviour
 
     public ParticleSystem winParticleSystem;
     public int DestroyWinCount = 5;
+    public float GoalDistanceThreshold = 1.0f;
+
     public int destroyedCount = 0;
 
     public Animator gateAnimator;
@@ -33,15 +35,15 @@ public class GoalBoxController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Flock>() != null)
         {
-
-            Destroy(other.gameObject);
-            destroyedCount += 1;
-
-            isGoalComplete = destroyedCount >= DestroyWinCount;
-            if (destroyedCount == DestroyWinCount)
-            {
-                gateAnimator.Play("CloseGateDoors");
-                goalSphere.SetActive(false);
+            // get the transform of the other
+            GameObject otherGo = other.gameObject;
+            Vector3 disp = transform.position - otherGo.transform.position;
+            if (disp.magnitude < GoalDistanceThreshold) {
+                // Destroy(other.gameObject);
+                Flock f = otherGo.GetComponent<Flock>();
+                f.SetGoalPos(transform.position);
+                f.SetFlockingEnabled(false);
+                destroyedCount += 1;
             }
         }
     }
