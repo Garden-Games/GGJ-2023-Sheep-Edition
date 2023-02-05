@@ -298,11 +298,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2da261c081d13e4b92319603f0524b7, type: 3}
---- !u!95 &288740036 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1123942116, guid: 971d72176ae147742af3cb89c859a701, type: 3}
-  m_PrefabInstance: {fileID: 1269217703}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &875082929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -360,11 +355,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2da261c081d13e4b92319603f0524b7, type: 3}
---- !u!1 &943632088 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2738976080769438170, guid: 971d72176ae147742af3cb89c859a701, type: 3}
-  m_PrefabInstance: {fileID: 1269217703}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1115440140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -433,14 +423,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoalBox
       objectReference: {fileID: 0}
-    - target: {fileID: 8796995320654235993, guid: 971d72176ae147742af3cb89c859a701, type: 3}
-      propertyPath: goalSphere
-      value: 
-      objectReference: {fileID: 943632088}
-    - target: {fileID: 8796995320654235993, guid: 971d72176ae147742af3cb89c859a701, type: 3}
-      propertyPath: gateAnimator
-      value: 
-      objectReference: {fileID: 288740036}
     - target: {fileID: 8796995320654235994, guid: 971d72176ae147742af3cb89c859a701, type: 3}
       propertyPath: m_RootOrder
       value: 23
