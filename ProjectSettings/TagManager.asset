@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - Dog
+  - Ground
+>>>>>>> 9bef9bd (dog get nav mesh agency after delay of hitting ground)
   layers:
   - Default
   - TransparentFX

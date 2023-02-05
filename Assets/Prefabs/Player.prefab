@@ -97,6 +97,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 0.1
   RotationSpeed: 0.5
+<<<<<<< HEAD
+=======
+  DogPrefab: {fileID: 1267326651748458145, guid: 68e9aabc4f04dac46a838715f64e6c2d, type: 3}
+  throwForce: 9
+  longThrowForceMultiplier: 2
+  upwardThrowForce: 8
+  dogSpawner: {fileID: 7427797688192336058}
+--- !u!1 &7427797688192336058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7459528144310780259}
+  m_Layer: 3
+  m_Name: DogSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7459528144310780259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427797688192336058}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.564, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1719942137469201557}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> 9bef9bd (dog get nav mesh agency after delay of hitting ground)
 --- !u!1001 &5155943620527378877
 PrefabInstance:
   m_ObjectHideFlags: 0
