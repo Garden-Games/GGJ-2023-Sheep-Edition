@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GoalBoxController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GoalBoxController : MonoBehaviour
 
     public Animator gateAnimator;
     public GameObject goalSphere;
+    public TextMeshPro sheepRemainingText;
 
     private bool isGoalComplete = false;
 
@@ -26,6 +28,9 @@ public class GoalBoxController : MonoBehaviour
         if (isGoalComplete)
         {
             winParticleSystem.gameObject.SetActive(true);
+        } else
+        {
+            sheepRemainingText.text = $"{destroyedCount} of {DestroyWinCount}";
         }
     }
 
@@ -42,6 +47,7 @@ public class GoalBoxController : MonoBehaviour
             {
                 gateAnimator.Play("CloseGateDoors");
                 goalSphere.SetActive(false);
+                sheepRemainingText.text = "";
             }
         }
     }
