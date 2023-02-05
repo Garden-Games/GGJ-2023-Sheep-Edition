@@ -357,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winParticleSystem: {fileID: 8796995320715536285}
   DestroyWinCount: 5
+  GoalDistanceThreshold: 6.5
   destroyedCount: 0
   gateAnimator: {fileID: 1123942116}
   goalSphere: {fileID: 2738976080769438170}
