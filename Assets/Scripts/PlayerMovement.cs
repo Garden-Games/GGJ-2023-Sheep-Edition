@@ -21,8 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject DogPrefab;
     [Range(1.0f,10.0f)]public float throwForce = 8f;
     [Range(1.0f,10.0f)]public float longThrowForceMultiplier = 2f;
-    [Range(1.0f, 3.0f)]public float dogSpawnDistance = 1.0f;
-    [Range(1.0f, 10.0f)] public float upwardThrowForce = 1.0f;
+    //[Range(1.0f, 3.0f)]public float dogSpawnDistance = 2.0f;
+    [Range(1.0f, 10.0f)] public float upwardThrowForce = 1.3f;
+    public GameObject dogSpawner;
  
 
     private void OnEnable()
@@ -71,18 +72,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void ThrowDog(InputAction.CallbackContext obj)
     {
-        Vector3 playerPos = gameObject.transform.position;
-        Vector3 playerDirection = gameObject.transform.forward;
         Quaternion playerRotation = gameObject.transform.rotation;
-      
-        Vector3 dogSpawingPosition = playerPos + playerDirection * dogSpawnDistance;
-        WaitForEnable();
+        Vector3 dogSpawingPosition = dogSpawner.transform.position;
         GameObject dog = Instantiate(DogPrefab, dogSpawingPosition, playerRotation);
         Rigidbody dogrb = dog.GetComponent<Rigidbody>();
-        Vector3 throwDirection = gameObject.transform.forward;
-        throwDirection.y += upwardThrowForce;
 
-        dogrb.AddForce(throwDirection * throwForce * longThrowForceMultiplier,ForceMode.Impulse);
+        Vector3 throwVector = Vector3.forward;
+        throwVector.y += upwardThrowForce;
+        throwVector.x *= throwForce;
+        throwVector.z *= throwForce;
+        dogrb.AddRelativeForce(throwVector, ForceMode.Impulse);
     }
     private void RotateTowardsDirection()
     {

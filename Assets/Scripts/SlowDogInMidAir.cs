@@ -6,7 +6,7 @@ public class SlowDogInMidAir : MonoBehaviour
 {
 
     private CharacterController ccColider;
-    [Range(1f,10f)]public float slowDownForce = 1f;
+    [Range(0.001f, 0.99999f)] public float slowDownMultiplier = 0.99f;
 
     private void OnEnable()
     {
@@ -17,12 +17,11 @@ public class SlowDogInMidAir : MonoBehaviour
     {
         if (!ccColider.isGrounded)
         {
-            gameObject.GetComponent<Rigidbody>().drag = slowDownForce;
-        }
-
-        else
-        {
-            gameObject.GetComponent<Rigidbody>().drag -= 0.1f;
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            Vector3 rbVelocity =rb.velocity;
+            rbVelocity.x *= slowDownMultiplier;
+            rbVelocity.z *= slowDownMultiplier;
+            rb.velocity = rbVelocity;
         }
     }
 }
