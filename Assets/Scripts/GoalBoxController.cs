@@ -77,7 +77,7 @@ public class GoalBoxController : MonoBehaviour
                 sheepRemainingText.text = "";
                 winAnimationPlayed = true;
                 GameObject goalBoxes = GameObject.FindGameObjectWithTag("GoalBox");
-                allComplete = true;
+                bool allComplete = true;
                 foreach(GameObject goalBox in goalBoxes)
                 {
                     if (!goalBox.GetComponent<GoalBoxController>().isGoalComplete)
