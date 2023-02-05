@@ -59,6 +59,7 @@ public class GoalBoxController : MonoBehaviour
                 agent.SetDestination(transform.position);
                 sheep.GetComponent<Flock>().enabled = false;
                 destroyedCount += 1;
+                doneSheep.GetComponent<AudioSource>().Play();
                 doneSheep.Add(otherGo);
                 isGoalComplete = destroyedCount >= DestroyWinCount;
             }
@@ -75,7 +76,18 @@ public class GoalBoxController : MonoBehaviour
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
                 winAnimationPlayed = true;
-                StartCoroutine(SceneLoadCoroutine());
+                GameObject goalBoxes = GameObject.FindGameObjectWithTag("GoalBox");
+                allComplete = true;
+                foreach(GameObject goalBox in goalBoxes)
+                {
+                    if (!goalBox.GetComponent<GoalBoxController>().isGoalComplete)
+                    {
+                        allComplete = false;
+                    }
+                }
+                if (allComplete) {
+                    StartCoroutine(SceneLoadCoroutine());
+                }
                 // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
             }

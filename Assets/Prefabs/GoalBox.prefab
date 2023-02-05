@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 8796995320654235993}
   m_Layer: 0
   m_Name: GoalBox
-  m_TagString: Untagged
+  m_TagString: GoalBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
