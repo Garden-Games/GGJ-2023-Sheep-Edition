@@ -578,6 +578,10 @@ PrefabInstance:
       value: -11.88
       objectReference: {fileID: 0}
     - target: {fileID: 2047561235237449764, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: numCreature
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047561235237449764, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: spawnLimits.x
       value: 1
       objectReference: {fileID: 0}
@@ -628,6 +632,10 @@ PrefabInstance:
     - target: {fileID: 6508007492461360472, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: m_LocalPosition.z
       value: 5.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859247844778912268, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: durationOfLevelSeconds
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6964204238535048898, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: m_Name
