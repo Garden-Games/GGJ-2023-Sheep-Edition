@@ -72,17 +72,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void ThrowDog(InputAction.CallbackContext obj)
     {
-        Quaternion playerRotation = gameObject.transform.rotation;
-        Vector3 dogSpawingPosition = dogSpawner.transform.position;
-        GameObject dog = Instantiate(DogPrefab, dogSpawingPosition, playerRotation);
-        Rigidbody dogrb = dog.GetComponent<Rigidbody>();
 
-        Vector3 throwVector = Vector3.forward;
-        throwVector.y += upwardThrowForce;
-        throwVector.x *= throwForce;
-        throwVector.z *= throwForce;
-        dogrb.AddRelativeForce(throwVector, ForceMode.Impulse);
-        //dogrb.AddRelativeTorque(Vector3.right, ForceMode.Impulse);
+        GameObject dog = GameObject.FindGameObjectWithTag("Dog");
+        if(dog!= null && dog.GetComponent<DogBehavior>().enabled)
+        {
+            DogBehavior.callDog = true;
+        }
+        else if (dog==null)
+        {
+            Quaternion playerRotation = gameObject.transform.rotation;
+            Vector3 dogSpawingPosition = dogSpawner.transform.position;
+            dog = Instantiate(DogPrefab, dogSpawingPosition, playerRotation);
+            Rigidbody dogrb = dog.GetComponent<Rigidbody>();
+
+            Vector3 throwVector = Vector3.forward;
+            throwVector.y += upwardThrowForce;
+            throwVector.x *= throwForce;
+            throwVector.z *= throwForce;
+            dogrb.AddRelativeForce(throwVector, ForceMode.Impulse);
+            dog = null;
+        }
     }
     private void RotateTowardsDirection()
     {
@@ -97,8 +106,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
     }
-
- 
 
 
 }
