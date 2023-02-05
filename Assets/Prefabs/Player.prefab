@@ -52,7 +52,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &2121519643338961108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,19 +126,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071001
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70710015
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0030706082
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0030706075
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -146,11 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.498
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
