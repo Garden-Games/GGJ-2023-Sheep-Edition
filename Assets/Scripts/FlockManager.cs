@@ -8,7 +8,7 @@ public class FlockManager : MonoBehaviour {
     [Range(0.0f, 5.0f)] public float minSpeed = 2.5f;
     [Range(0.0f, 50.0f)] public float maxSpeed = 2.5f;
     [Range(1.0f, 5.0f)] public float rotationSpeed = 2.5f;
-    [Range(1.0f, 10.0f)] public float neighborhoodRadius = 5.0f;
+    [Range(1.0f, 10.0f)] public float neighborhoodRadius = 2.0f;
     public float desiredPlayerDistance = 5.0f;
 
     [Header("Advanced Settings")]
