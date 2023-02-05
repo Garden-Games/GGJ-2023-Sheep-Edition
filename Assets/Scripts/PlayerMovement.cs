@@ -17,7 +17,14 @@ public class PlayerMovement : MonoBehaviour
     [Range(0.0f, 100.0f)]public float MoveSpeed = 5f;
     [Range(0.0f, 1.0f)] public float RotationSpeed = 0.5f;
 
-    
+    [Header("Dog Stuff")]
+    public GameObject DogPrefab;
+    [Range(1.0f,10.0f)]public float throwForce = 8f;
+    [Range(1.0f,10.0f)]public float longThrowForceMultiplier = 2f;
+    //[Range(1.0f, 3.0f)]public float dogSpawnDistance = 2.0f;
+    [Range(1.0f, 10.0f)] public float upwardThrowForce = 1.3f;
+    public GameObject dogSpawner;
+ 
 
     private void OnEnable()
     {
@@ -50,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
         cc.Move(MoveDirection * MoveSpeed);
     }
 
-
     private void Move()
     {
         Vector3 playerInputVector = moveController.ReadValue<Vector2>();
@@ -61,14 +67,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void Yell(InputAction.CallbackContext obj)
     {
-
+        print("Yelling");
     }
 
     private void ThrowDog(InputAction.CallbackContext obj)
     {
 
-    }
+        GameObject dog = GameObject.FindGameObjectWithTag("Dog");
+        if(dog!= null && dog.GetComponent<DogBehavior>().enabled)
+        {
+            DogBehavior.callDog = true;
+        }
+        else if (dog==null)
+        {
+            Quaternion playerRotation = gameObject.transform.rotation;
+            Vector3 dogSpawingPosition = dogSpawner.transform.position;
+            dog = Instantiate(DogPrefab, dogSpawingPosition, playerRotation);
+            Rigidbody dogrb = dog.GetComponent<Rigidbody>();
 
+            Vector3 throwVector = Vector3.forward;
+            throwVector.y += upwardThrowForce;
+            throwVector.x *= throwForce;
+            throwVector.z *= throwForce;
+            dogrb.AddRelativeForce(throwVector, ForceMode.Impulse);
+            dog = null;
+        }
+    }
     private void RotateTowardsDirection()
     {
 
@@ -78,6 +102,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerable WaitForEnable()
+    {
+        yield return new WaitForEndOfFrame();
+    }
 
 
 }
