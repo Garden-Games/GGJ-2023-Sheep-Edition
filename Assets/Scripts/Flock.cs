@@ -38,8 +38,7 @@ public class Flock : MonoBehaviour {
         if (!manager) {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
-        // set sphereCollider radius to manager.neighborhoodRadius
-        flockNeighborhoodCollider.radius = manager.neighborhoodRadius;
+        
         if (flockingEnabled && Random.Range(0.0f, 1.0f) < manager.flockUpdateFrequency) {
             UpdateGoalPos();
         }

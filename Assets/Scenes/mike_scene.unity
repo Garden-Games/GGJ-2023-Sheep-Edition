@@ -244,6 +244,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 386670937, guid: 5f9249d20a492443fa32ed169a5a8dc9, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: c6078d2713c23884b921d3903799adaa, type: 2}
     - target: {fileID: 4191627932654086406, guid: 5f9249d20a492443fa32ed169a5a8dc9, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -454,7 +458,11 @@ PrefabInstance:
       objectReference: {fileID: 1678615596}
     - target: {fileID: 5149257497492575278, guid: e31a72debb4474f8c9c6656dba5262d2, type: 3}
       propertyPath: neighborhoodRadius
-      value: 5
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149257497492575278, guid: e31a72debb4474f8c9c6656dba5262d2, type: 3}
+      propertyPath: desiredPlayerDistance
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e31a72debb4474f8c9c6656dba5262d2, type: 3}
@@ -475,7 +483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8796995320654235994, guid: 971d72176ae147742af3cb89c859a701, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.97
+      value: 27.386206
       objectReference: {fileID: 0}
     - target: {fileID: 8796995320654235994, guid: 971d72176ae147742af3cb89c859a701, type: 3}
       propertyPath: m_LocalPosition.y
@@ -483,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8796995320654235994, guid: 971d72176ae147742af3cb89c859a701, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.38
+      value: -9.987215
       objectReference: {fileID: 0}
     - target: {fileID: 8796995320654235994, guid: 971d72176ae147742af3cb89c859a701, type: 3}
       propertyPath: m_LocalRotation.w
