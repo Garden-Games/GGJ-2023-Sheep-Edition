@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5985683530950978256, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985683530950978258, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: GoalDistanceThreshold
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6964204238535048898, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: m_Name
       value: BasicGame
