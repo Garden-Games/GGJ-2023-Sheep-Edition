@@ -76,7 +76,7 @@ public class GoalBoxController : MonoBehaviour
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
                 winAnimationPlayed = true;
-                GameObject goalBoxes = GameObject.FindGameObjectWithTag("GoalBox");
+                GameObject[] goalBoxes = GameObject.FindGameObjectsWithTag("GoalBox");
                 bool allComplete = true;
                 foreach(GameObject goalBox in goalBoxes)
                 {
