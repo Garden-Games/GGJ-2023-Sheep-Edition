@@ -76,7 +76,6 @@ public class Flock : MonoBehaviour {
         for (int i = 0; i < manager.avoidTags.Length; i++) {
             avoidObjects[i] = GameObject.FindGameObjectWithTag(manager.avoidTags[i]);
         }
-        Debug.Log("Avoid objects: " + avoidObjects.Length);
         return avoidObjects;
     }
 

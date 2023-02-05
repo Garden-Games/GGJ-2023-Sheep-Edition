@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GoalBoxController : MonoBehaviour
 {
 
     public ParticleSystem winParticleSystem;
     public int DestroyWinCount = 5;
-    public float GoalDistanceThreshold = 1.0f;
+    public float GoalDistanceThreshold = 20.0f;
 
     public int destroyedCount = 0;
 
     public Animator gateAnimator;
     public GameObject goalSphere;
+    public TextMeshPro sheepRemainingText;
 
     private bool isGoalComplete = false;
+
+    private bool winAnimationPlayed = false;
+
+    private List<GameObject> triggeredSheep = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +31,40 @@ public class GoalBoxController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        List<GameObject> doneSheep = new List<GameObject>();
+        foreach(GameObject sheep in triggeredSheep)
+        {
+            // get the transform of the other
+            GameObject otherGo = sheep;
+            Vector3 disp = transform.position - otherGo.transform.position;
+            Debug.Log("Distance to goal: " + disp.magnitude);
+            if (disp.magnitude < GoalDistanceThreshold) {
+                // Destroy(other.gameObject);
+                UnityEngine.AI.NavMeshAgent agent = sheep.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                agent.SetDestination(transform.position);
+                sheep.GetComponent<Flock>().enabled = false;
+                destroyedCount += 1;
+                doneSheep.Add(otherGo);
+                isGoalComplete = destroyedCount >= DestroyWinCount;
+            }
+        }
+        foreach(GameObject sheep in doneSheep)
+        {
+            triggeredSheep.Remove(sheep);
+        }
         if (isGoalComplete)
         {
+            if (!winAnimationPlayed)
+            {
+                gateAnimator.Play("CloseGateDoors");
+                goalSphere.SetActive(false);
+                sheepRemainingText.text = "";
+                winAnimationPlayed = true;
+            }
             winParticleSystem.gameObject.SetActive(true);
+        } else
+        {
+            sheepRemainingText.text = $"{destroyedCount} of {DestroyWinCount}";
         }
     }
 
@@ -35,22 +72,16 @@ public class GoalBoxController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Flock>() != null)
         {
-            // get the transform of the other
-            GameObject otherGo = other.gameObject;
-            Vector3 disp = transform.position - otherGo.transform.position;
-            if (disp.magnitude < GoalDistanceThreshold) {
-                // Destroy(other.gameObject);
-                Flock f = otherGo.GetComponent<Flock>();
-                f.SetGoalPos(transform.position);
-                f.SetFlockingEnabled(false);
-                destroyedCount += 1;
-            }
+            triggeredSheep.Add(other.gameObject);
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-
+        if (other.gameObject.GetComponent<Flock>() != null)
+        {
+            triggeredSheep.Remove(other.gameObject);
+        }
     }
 
     private void OnDrawGizmos()
@@ -59,6 +90,10 @@ public class GoalBoxController : MonoBehaviour
         Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
         Gizmos.matrix = transform.localToWorldMatrix;
         Gizmos.DrawCube(Vector3.zero, this.GetComponent<BoxCollider>().size);
+
+        // draw a translucent green sphere with goaldistancethreshold radius at the position of this object
+        Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
+        Gizmos.DrawSphere(transform.position, GoalDistanceThreshold);
         
     }
 }
