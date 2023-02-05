@@ -20,6 +20,9 @@ public class Flock : MonoBehaviour {
     // private list of gameobjects called neighbors
     private List<GameObject> neighbors = new List<GameObject>();
     private Vector3 internalGoalPos = Vector3.zero;
+    private bool isIdle = false;
+    private float idleCycleTime = 0.0f;
+
 
 
 
@@ -39,9 +42,10 @@ public class Flock : MonoBehaviour {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
 
+        
+
         // Set the sphere collider radius to the flock neighborhood radius
         flockNeighborhoodCollider.radius = manager.neighborhoodRadius;
-
         if (flockingEnabled && Random.Range(0.0f, 1.0f) < manager.flockUpdateFrequency) {
             UpdateGoalPos();
         }
@@ -83,10 +87,28 @@ public class Flock : MonoBehaviour {
                 }
             }
             internalGoalPos = newGoal / neighbors.Count;
+            isIdle = false;
+            
+        }
+        else {
+            if (isIdle) {
+                idleCycleTime += Time.deltaTime;
+                if (idleCycleTime > manager.randomWalkUpdateFrequency) {
+                    isIdle = false;
+                    idleCycleTime = 0.0f;
+                }
+            }
+            else {
+                float rwd = manager.randomWalkDistance;
+                float x = Random.Range(-rwd, rwd);
+                float y = Random.Range(-rwd, rwd);
+                float z = Random.Range(-rwd, rwd);
+                internalGoalPos = transform.position + new Vector3(x, y, z);
+                isIdle = true;
+            }
         }
 
-
-        // get nav mesh agent component of game object
+       // get nav mesh agent component of game object
 
         UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         Vector3 goalPos = GetGoalPos();
@@ -96,11 +118,14 @@ public class Flock : MonoBehaviour {
             foreach(GameObject playerObject in playerObjects) {
                 Vector3 playerDisplacement = playerObject.transform.position - transform.position;
                 if (playerDisplacement.magnitude < manager.desiredPlayerDistance) {
-                    goalPos = goalPos - (2 * playerDisplacement);
+                    goalPos = (-1 * playerDisplacement.normalized * (manager.desiredPlayerDistance - playerDisplacement.magnitude)) + transform.position;
+                    isIdle = false;
                 }
             }
         }
         agent.SetDestination(goalPos);
+
+ 
     }
 
     public Vector3 GetGoalPos() {
