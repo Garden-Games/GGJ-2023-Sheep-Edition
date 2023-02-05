@@ -23,9 +23,6 @@ public class Flock : MonoBehaviour {
     private bool isIdle = false;
     private float idleCycleTime = 0.0f;
 
-
-
-
     void Start() {
         if (!manager) {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
@@ -75,6 +72,20 @@ public class Flock : MonoBehaviour {
         return Vector3.zero;
     }
 
+    private Vector3 GetAvoidanceVector(Vector3 avoidPos, float desiredDistance) {
+        Vector3 displacement = avoidPos - transform.position;
+        return (-1 * displacement.normalized * (manager.desiredAvoidDistance - displacement.magnitude)) + transform.position;
+    }
+
+    private GameObject[] GetAvoidObjects() {
+        GameObject[] avoidObjects = new GameObject[manager.avoidTags.Length];
+        for (int i = 0; i < manager.avoidTags.Length; i++) {
+            avoidObjects[i] = GameObject.FindGameObjectWithTag(manager.avoidTags[i]);
+        }
+        Debug.Log("Avoid objects: " + avoidObjects.Length);
+        return avoidObjects;
+    }
+
     private void UpdateGoalPos() {
         if (!manager) {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
@@ -113,13 +124,17 @@ public class Flock : MonoBehaviour {
         UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         Vector3 goalPos = GetGoalPos();
 
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
-        if (playerObjects != null) {
-            foreach(GameObject playerObject in playerObjects) {
-                Vector3 playerDisplacement = playerObject.transform.position - transform.position;
-                if (playerDisplacement.magnitude < manager.desiredPlayerDistance) {
-                    goalPos = (-1 * playerDisplacement.normalized * (manager.desiredPlayerDistance - playerDisplacement.magnitude)) + transform.position;
-                    isIdle = false;
+        // check for objects we try to avoid
+
+        GameObject[] avoidObjects = GetAvoidObjects();
+        if (avoidObjects != null) {
+            foreach(GameObject avoidObject in avoidObjects) {
+                if (avoidObject != null) {
+                    Vector3 displacement = avoidObject.transform.position - transform.position;
+                    if (displacement.magnitude < manager.desiredAvoidDistance) {
+                        goalPos = GetAvoidanceVector(avoidObject.transform.position, manager.desiredAvoidDistance);
+                        isIdle = false;
+                    }
                 }
             }
         }
