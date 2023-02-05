@@ -7,8 +7,13 @@ public class GoalBoxController : MonoBehaviour
 
     public ParticleSystem winParticleSystem;
     public int DestroyWinCount = 5;
-
     public int destroyedCount = 0;
+
+    public Animator gateAnimator;
+    public GameObject goalSphere;
+
+    private bool isGoalComplete = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +23,7 @@ public class GoalBoxController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (destroyedCount >= DestroyWinCount)
+        if (isGoalComplete)
         {
             winParticleSystem.gameObject.SetActive(true);
         }
@@ -31,6 +36,13 @@ public class GoalBoxController : MonoBehaviour
 
             Destroy(other.gameObject);
             destroyedCount += 1;
+
+            isGoalComplete = destroyedCount >= DestroyWinCount;
+            if (destroyedCount == DestroyWinCount)
+            {
+                gateAnimator.Play("CloseGateDoors");
+                goalSphere.SetActive(false);
+            }
         }
     }
 
