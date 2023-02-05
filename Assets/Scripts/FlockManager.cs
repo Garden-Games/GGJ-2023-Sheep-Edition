@@ -8,13 +8,16 @@ public class FlockManager : MonoBehaviour {
     [Range(0.0f, 5.0f)] public float minSpeed = 2.5f;
     [Range(0.0f, 50.0f)] public float maxSpeed = 2.5f;
     [Range(1.0f, 5.0f)] public float rotationSpeed = 2.5f;
-    [Range(1.0f, 10.0f)] public float neighborhoodRadius = 2.0f;
+    [Range(1.0f, 10.0f)] public float neighborhoodRadius = 1.7f;
     [Tooltip("How far the flock will try to stay from the player")]
-    public float desiredPlayerDistance = 5.0f;
+    public float desiredAvoidDistance = 5.0f;
     [Tooltip("When idle, how far away the sheep will try to talk")]
     public float randomWalkDistance = 5.0f;
     [Tooltip("How frequently the sheep will change their idle position")]
     public float randomWalkUpdateFrequency = 3.0f;
+    [Tooltip("Tags that the flock members will try to avoid")]
+    public string[] avoidTags = new string[] { "Player", "Dog" };
+
 
     [Header("Advanced Settings")]
     [Tooltip("How frequently the Flock component applies flock rules. Between 0.0 and 1.0")]
