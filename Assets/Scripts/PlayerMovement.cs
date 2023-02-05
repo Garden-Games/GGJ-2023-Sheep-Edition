@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         throwVector.x *= throwForce;
         throwVector.z *= throwForce;
         dogrb.AddRelativeForce(throwVector, ForceMode.Impulse);
+        //dogrb.AddRelativeTorque(Vector3.right, ForceMode.Impulse);
     }
     private void RotateTowardsDirection()
     {

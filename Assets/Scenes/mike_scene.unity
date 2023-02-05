@@ -5051,6 +5051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5389172338729747507, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
+      propertyPath: DogPrefab
+      value: 
+      objectReference: {fileID: 3674346750566360700, guid: cfac7626e1de04b40bd804eadcef8f28, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49fbf3757dc5c664eaf5cf26da896e0d, type: 3}
 --- !u!1001 &951156452
