@@ -22,7 +22,7 @@ public class DogBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals("Ground") || collision.gameObject.tag.Equals("GoalBox"))
         {
             isGrounded = true;
         }
