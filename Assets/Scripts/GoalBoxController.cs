@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class GoalBoxController : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class GoalBoxController : MonoBehaviour
             Debug.Log("Distance to goal: " + disp.magnitude);
             if (disp.magnitude < GoalDistanceThreshold) {
                 // Destroy(other.gameObject);
-                UnityEngine.AI.NavMeshAgent agent = sheep.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                NavMeshAgent agent = sheep.GetComponent<NavMeshAgent>();
                 agent.SetDestination(transform.position);
                 sheep.GetComponent<Flock>().enabled = false;
                 destroyedCount += 1;
@@ -75,6 +76,7 @@ public class GoalBoxController : MonoBehaviour
                 gateAnimator.Play("CloseGateDoors");
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
+                GameObject.Find("/BasicGame/" + gameObject.name + "/closedGateNav").SetActive(true);
                 winAnimationPlayed = true;
                 GameObject[] goalBoxes = GameObject.FindGameObjectsWithTag("GoalBox");
                 bool allComplete = true;
