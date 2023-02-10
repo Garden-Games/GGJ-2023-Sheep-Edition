@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 0.1
   RotationSpeed: 0.5
+  animator: {fileID: 4873778621935930095}
   DogPrefab: {fileID: 3674346750566360700, guid: cfac7626e1de04b40bd804eadcef8f28, type: 3}
   throwForce: 9
   longThrowForceMultiplier: 2
@@ -266,7 +267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.082
       objectReference: {fileID: 0}
     - target: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
       propertyPath: m_LocalPosition.z
@@ -305,5 +306,10 @@ PrefabInstance:
 --- !u!4 &3658249496666849876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8451323487123772393, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
+  m_PrefabInstance: {fileID: 5155943620527378877}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4873778621935930095 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 301376903239670610, guid: a93fe77e406b6bf4980621ff8accf070, type: 3}
   m_PrefabInstance: {fileID: 5155943620527378877}
   m_PrefabAsset: {fileID: 0}
