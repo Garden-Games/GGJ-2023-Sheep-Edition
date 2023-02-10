@@ -73,6 +73,7 @@ public class GoalBoxController : MonoBehaviour
             if (!winAnimationPlayed)
             {
                 gateAnimator.Play("CloseGateDoors");
+                gateAnimator.gameObject.GetComponent<AudioSource>().Play();
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
                 winAnimationPlayed = true;
