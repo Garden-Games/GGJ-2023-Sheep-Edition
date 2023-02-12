@@ -59,12 +59,10 @@ public class GoalBoxController : MonoBehaviour
             // get the transform of the other
             GameObject otherGo = sheep;
             Vector3 disp = transform.position - otherGo.transform.position;
-            Debug.Log("Distance to goal: " + disp.magnitude);
-            if (disp.magnitude < GoalDistanceThreshold) {
-                // Destroy(other.gameObject);
-                UnityEngine.AI.NavMeshAgent agent = sheep.GetComponent<UnityEngine.AI.NavMeshAgent>();
-                agent.SetDestination(transform.position);
-                sheep.GetComponent<Flock>().enabled = false;
+            if (!isGoalComplete) {
+                Flock flock = sheep.GetComponent<Flock>();
+                flock.SetGoalPos(transform.position);
+                flock.enabled = false;
                 destroyedCount += 1;
                 sheep.GetComponent<AudioSource>().Play();
                 doneSheep.Add(otherGo);
