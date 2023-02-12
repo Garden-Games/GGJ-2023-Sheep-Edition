@@ -77,6 +77,7 @@ public class GoalBoxController : MonoBehaviour
         {
             if (!winAnimationPlayed)
             {
+                gameObject.tag = "CompletedGoalBox";
                 gateAnimator.Play("CloseGateDoors");
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";

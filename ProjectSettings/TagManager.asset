@@ -7,6 +7,7 @@ TagManager:
   - Dog
   - Ground
   - GoalBox
+  - CompletedGoalBox
   layers:
   - Default
   - TransparentFX
