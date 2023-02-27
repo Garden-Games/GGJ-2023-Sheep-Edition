@@ -3,32 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class Flock : MonoBehaviour {
-
-    float speed;
-
     private FlockManager manager;
-    private Vector3 fixedGoalPosition = Vector3.zero;
-    private bool navigateToFixedGoal = false;
-    private bool flockingEnabled = true;
+    public Vector3 fixedGoalPosition = Vector3.zero;
+    public bool navigateToFixedGoal = false;
 
     public SphereCollider flockNeighborhoodCollider;
 
-
-
     // private list of gameobjects called neighbors
-    private List<GameObject> neighbors = new List<GameObject>();
-    private Vector3 internalGoalPos = Vector3.zero;
-    private bool isIdle = false;
-    private float idleCycleTime = 0.0f;
+    public List<GameObject> neighbors = new List<GameObject>();
+    public Vector3 internalGoalPos = Vector3.zero;
+    public bool isIdle = false;
+    public float idleCycleTime = 0.0f;
+    public float goalJitter = 0.2f;
 
     void Start() {
         if (!manager) {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
     }
-
 
     void Update() {
         // if random number between 0 and 1 is less than manager.flockUpdateFrequency
@@ -37,7 +30,7 @@ public class Flock : MonoBehaviour {
         }
         // Set the sphere collider radius to the flock neighborhood radius
         flockNeighborhoodCollider.radius = manager.neighborhoodRadius;
-        if (flockingEnabled && Random.Range(0.0f, 1.0f) < manager.flockUpdateFrequency) {
+        if (!navigateToFixedGoal && Random.Range(0.0f, 1.0f) < manager.flockUpdateFrequency) {
             UpdateGoalPos();
         }
     }
@@ -54,21 +47,13 @@ public class Flock : MonoBehaviour {
         }
     }
 
-
-    private GameObject[] GetNeighbors() {
-
-        // return empty array of gameobjects
-        return new GameObject[0];
-    }
-
-    public Vector3 CalculateNeighborhoodCenter() {
-
-        return Vector3.zero;
-    }
-
-    private Vector3 GetAvoidanceVector(Vector3 avoidPos, float desiredDistance) {
+    private Vector3 GetAvoidanceVector(Vector3 avoidPos) {
         Vector3 displacement = avoidPos - transform.position;
-        return (-1 * displacement.normalized * (manager.desiredAvoidDistance - displacement.magnitude)) + transform.position;
+        return (
+            -1 * displacement.normalized * 
+            (manager.desiredAvoidDistance - displacement.magnitude)
+        ) 
+        + transform.position;
     }
 
     private GameObject[] GetAvoidObjects() {
@@ -84,17 +69,18 @@ public class Flock : MonoBehaviour {
             manager = GameObject.Find("FlockManager").GetComponent<FlockManager>();
         }
         if (neighbors.Count > 0) {
+            // Be sure not to count neighbors without an enabled Flock in the
+            // scaling of internalGoalPos, count activeNeighbors instead
+            int activeNeighbors = 0;
             Vector3 newGoal = Vector3.zero;
             foreach (GameObject neighbor in neighbors) {
-                if (neighbor != null) {
-                    if (neighbor.GetComponent<Flock>().enabled) {
-                        newGoal += neighbor.transform.position;
-                    }
+                if (neighbor != null && neighbor.GetComponent<Flock>().enabled) {
+                    newGoal += neighbor.transform.position;
+                    activeNeighbors++;
                 }
             }
-            internalGoalPos = newGoal / neighbors.Count;
+            internalGoalPos = newGoal / activeNeighbors + Vector3.one * goalJitter;
             isIdle = false;
-            
         }
         else {
             if (isIdle) {
@@ -125,17 +111,21 @@ public class Flock : MonoBehaviour {
         if (avoidObjects != null) {
             foreach(GameObject avoidObject in avoidObjects) {
                 if (avoidObject != null) {
-                    Vector3 displacement = avoidObject.transform.position - transform.position;
+                    Vector3 displacement = 
+                        avoidObject.transform.position - transform.position;
                     if (displacement.magnitude < manager.desiredAvoidDistance) {
-                        goalPos = GetAvoidanceVector(avoidObject.transform.position, manager.desiredAvoidDistance);
+                        Vector3 avoidanceGoal = GetAvoidanceVector(
+                            avoidObject.transform.position
+                        );
+                        goalPos = 
+                            (1 - manager.avoidWeight) * goalPos 
+                            + manager.avoidWeight * avoidanceGoal;
                         isIdle = false;
                     }
                 }
             }
         }
         agent.SetDestination(goalPos);
-
- 
     }
 
     public Vector3 GetGoalPos() {
@@ -167,10 +157,6 @@ public class Flock : MonoBehaviour {
         agent.SetDestination(pos);
     }
 
-    public void SetFlockingEnabled(bool enabled) {
-        flockingEnabled = enabled;
-    }
-
     public void ClearGoalPos() {
         navigateToFixedGoal = false;
     }
@@ -184,11 +170,8 @@ public class Flock : MonoBehaviour {
         Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
         Gizmos.DrawSphere(GetGoalPos(), 0.5f);
 
-
         // draw a yellow translucent sphere with radius manager.neighborhoodRadius
-        Gizmos.color = new Color(1.0f, 1.0f, 0.0f, 0.02f);
-        Gizmos.DrawSphere(transform.position, manager.neighborhoodRadius);
-
-        
+        Gizmos.color = new Color(1.0f, 1.0f, 0.0f, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, manager.neighborhoodRadius);
     }
 }

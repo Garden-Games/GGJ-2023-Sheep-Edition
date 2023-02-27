@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Controls")]
     [Range(0.0f, 100.0f)]public float MoveSpeed = 5f;
     [Range(0.0f, 1.0f)] public float RotationSpeed = 0.5f;
+    public Animator animator;
 
     [Header("Dog Stuff")]
     public GameObject DogPrefab;
@@ -24,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     //[Range(1.0f, 3.0f)]public float dogSpawnDistance = 2.0f;
     [Range(1.0f, 10.0f)] public float upwardThrowForce = 1.3f;
     public GameObject dogSpawner;
- 
+
 
     private void OnEnable()
     {
@@ -63,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
         MoveDirection.x = playerInputVector.x;
         MoveDirection.z = playerInputVector.y;
         MoveDirection.y = 0;
+
+        animator.SetBool("isMoving", playerInputVector.magnitude > 0);
     }
 
     private void Yell(InputAction.CallbackContext obj)
