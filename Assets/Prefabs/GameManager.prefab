@@ -179,7 +179,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3185466308537193190, guid: f36ea468ab95247c99fc4932a78b3c69, type: 3}
       propertyPath: neighborhoodRadius
-      value: 10
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185466308537193190, guid: f36ea468ab95247c99fc4932a78b3c69, type: 3}
+      propertyPath: desiredAvoidDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185466308537193190, guid: f36ea468ab95247c99fc4932a78b3c69, type: 3}
+      propertyPath: avoidTags.Array.data[2]
+      value: CompletedGoalBox
       objectReference: {fileID: 0}
     - target: {fileID: 3185466308537193191, guid: f36ea468ab95247c99fc4932a78b3c69, type: 3}
       propertyPath: m_RootOrder

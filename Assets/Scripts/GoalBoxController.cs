@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GoalBoxController : MonoBehaviour
 {
+    [Header("Loading Next Level Settings")]
+    public Image fadeScreen;
+    public float fadeTime = 3f;
 
     public ParticleSystem winParticleSystem;
     public int DestroyWinCount = 5;
@@ -27,16 +31,19 @@ public class GoalBoxController : MonoBehaviour
     void Start()
     {
         winParticleSystem.gameObject.SetActive(false);
+        FadeScreen.FadeIn(fadeScreen,fadeTime);
     }
 
     private IEnumerator SceneLoadCoroutine()
     {
         Debug.Log("Level Complete! Loading next level in 3 seconds...");
+        
         yield return new WaitForSeconds(3);
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (sceneIndex >= SceneManager.sceneCountInBuildSettings) {
+        if (sceneIndex + 1 >= SceneManager.sceneCountInBuildSettings) {
             Debug.Log("You win the game!");
+            SceneManager.LoadScene(0);
         }
         else {
             SceneManager.LoadScene(sceneIndex + 1);
@@ -52,12 +59,10 @@ public class GoalBoxController : MonoBehaviour
             // get the transform of the other
             GameObject otherGo = sheep;
             Vector3 disp = transform.position - otherGo.transform.position;
-            Debug.Log("Distance to goal: " + disp.magnitude);
-            if (disp.magnitude < GoalDistanceThreshold) {
-                // Destroy(other.gameObject);
-                UnityEngine.AI.NavMeshAgent agent = sheep.GetComponent<UnityEngine.AI.NavMeshAgent>();
-                agent.SetDestination(transform.position);
-                sheep.GetComponent<Flock>().enabled = false;
+            if (!isGoalComplete) {
+                Flock flock = sheep.GetComponent<Flock>();
+                flock.SetGoalPos(transform.position);
+                flock.enabled = false;
                 destroyedCount += 1;
                 sheep.GetComponent<AudioSource>().Play();
                 doneSheep.Add(otherGo);
@@ -72,6 +77,7 @@ public class GoalBoxController : MonoBehaviour
         {
             if (!winAnimationPlayed)
             {
+                gameObject.tag = "CompletedGoalBox";
                 gateAnimator.Play("CloseGateDoors");
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
@@ -86,10 +92,9 @@ public class GoalBoxController : MonoBehaviour
                     }
                 }
                 if (allComplete) {
+                    FadeScreen.FadeOut(fadeScreen, fadeTime);
                     StartCoroutine(SceneLoadCoroutine());
                 }
-                // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
             }
             winParticleSystem.gameObject.SetActive(true);
         } else
@@ -126,4 +131,6 @@ public class GoalBoxController : MonoBehaviour
         Gizmos.DrawSphere(transform.position, GoalDistanceThreshold);
         
     }
+
 }
+
