@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class GoalBoxController : MonoBehaviour
@@ -81,6 +82,7 @@ public class GoalBoxController : MonoBehaviour
                 gateAnimator.Play("CloseGateDoors");
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
+                GameObject.Find("/BasicGame/" + gameObject.name + "/closedGateNav").SetActive(true);
                 winAnimationPlayed = true;
                 GameObject[] goalBoxes = GameObject.FindGameObjectsWithTag("GoalBox");
                 bool allComplete = true;

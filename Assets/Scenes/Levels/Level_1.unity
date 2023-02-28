@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -196,6 +196,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 648535675}
     m_Modifications:
+    - target: {fileID: 3648259131296404266, guid: ac3f13da9a926624c9281b854d1c7caf, type: 3}
+      propertyPath: m_Bidirectional
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7936487194590973691, guid: ac3f13da9a926624c9281b854d1c7caf, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -633,10 +637,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 5.42
       objectReference: {fileID: 0}
+    - target: {fileID: 6681288891193805228, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: ca6b3fb58d731a74faa50a99678b9456, type: 2}
     - target: {fileID: 6859247844778912268, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: durationOfLevelSeconds
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 6964204238025280949, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: c85c2f62a77b6c34c9607b87c7a9d45d, type: 2}
     - target: {fileID: 6964204238535048898, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: m_Name
       value: BasicGame

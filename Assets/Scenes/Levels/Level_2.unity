@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1069,6 +1069,10 @@ PrefabInstance:
       propertyPath: durationOfLevelSeconds
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 6964204238025280949, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 6a3efd645b04a4e4dbf8d83968141833, type: 2}
     - target: {fileID: 6964204238535048898, guid: cccff9ab5bd2c4abba99edf5ff4ba6a1, type: 3}
       propertyPath: m_Name
       value: BasicGame
