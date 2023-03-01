@@ -80,6 +80,7 @@ public class GoalBoxController : MonoBehaviour
             {
                 gameObject.tag = "CompletedGoalBox";
                 gateAnimator.Play("CloseGateDoors");
+                gateAnimator.gameObject.GetComponent<AudioSource>().Play();
                 goalSphere.SetActive(false);
                 sheepRemainingText.text = "";
                 GameObject.Find("/BasicGame/" + gameObject.name + "/closedGateNav").SetActive(true);
